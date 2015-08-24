@@ -147,7 +147,7 @@ module Slackbotsy
       @listeners.map do |listener|
         text.match(listener.regex) do |mdata|
           begin
-            message.instance_exec(mdata, &listener.proc)
+            message.instance_exec(*mdata[1..-1], &listener.proc)
           rescue => err # keep running even with a broken script, but report the error
             err
           end
